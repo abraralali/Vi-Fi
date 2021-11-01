@@ -62,8 +62,8 @@
   ```
 
   #### Bipartite Association
+  Coming soon...
 
 
-### TODO:
-  * Execution instructions
-  * Dataset Link
+Vi-Fi Dataset Link:
+  Comming soon
