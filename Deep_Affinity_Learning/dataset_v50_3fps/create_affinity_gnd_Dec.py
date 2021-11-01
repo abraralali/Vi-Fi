@@ -63,7 +63,7 @@ WINDOW_SIZE = 10
 for seq_id, sequence_name in enumerate(sequence_names):
 	df_d = {}
 	idx_df = 0
-	if not sequence_name in ['20211007_143810']:
+	if not sequence_name in ['20211007_135415']:
 		continue
 
 	print(seq_id, sequence_name)
@@ -235,7 +235,7 @@ for seq_id, sequence_name in enumerate(sequence_names):
 		### prepare the affinity matrix gnd
 		N = 5 # maximum 5 phone holder identities existing at the same time
 		M = 15 # maximum bounding boxes existing during the window frame
-		print(len(consecutive_dist_map))
+		# print(len(consecutive_dist_map))
 		# affinity_mat = np.zeros((N+1, N+1)) # last column and last row handles incoming or disappearing identities
 		affinity_mat = np.zeros((N+1, M+1))
 		# # print(len(consecutive_dist_map))
