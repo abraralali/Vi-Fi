@@ -9,11 +9,12 @@
   * scripts of data pre-processing and organizing
 
 
-#### "data_prepare_for_train/" contains:
+#### "Deep_Affinity_Learning/" contains:
+##### "data_prepare_for_train/" contains:
   * scripts of constructing data samples for deep affinity matrix training
   * scripts of spliting training and testing set
 
-#### "aff_mat_train_test/" contains:
+##### "aff_mat_train_test/" contains:
   * scripts of model architecture
   * scripts of training and testing
 
