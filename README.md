@@ -58,7 +58,7 @@
   ```
   To test:
   ```bash
-  python tracklet_ID_assignment_ml_demo.py 
+  python tracklet_ID_assignment_ml_demo.py # need to manually change the directory of .pth in the script!
   ```
 
   #### Bipartite Association
