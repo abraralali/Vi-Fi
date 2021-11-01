@@ -9,11 +9,11 @@
 
 
 * Deep_Affinity_Learning/:
-  * data_prepare_for_train/:
+  * dataset_v50_3fps/:
     * scripts of constructing data samples for deep affinity matrix training
     * scripts of spliting training and testing set
 
-  * aff_mat_train_test/:
+  * v50/:
     * scripts of model architecture
     * scripts of training and testing
 
@@ -51,7 +51,9 @@
   
   To train:
   ```bash
-  cd aff_mat_train_test/
+  cd dataset_v50_3fps/
+  python split_data_train_test.py
+  cd ../v50/
   python train_v50.py  [your_dir_to_save_the_model] --fold 1 --epoch 80 --dataset [your_dir_of_train_test_dataset]/train_test_shuf_split_v2/ --lr 0.001 --batchSize 32
   ```
   To test:
