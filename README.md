@@ -18,9 +18,7 @@
   * scripts of training and testing
 
 #### "Bipartite_Association/" contains:
- * MATLAB scripts to prepare and process data of the visual tracker, IMU readings and FTM
- * To run the code first run DataPreparation.m then run ZedMain.m
- * You need to change sequences_path and src_path to read data and scripts from your machine path
+ * MATLAB scripts to prepare and process data of the visual tracker, IMU readings and FTM to associate them.
 
 ### TODO:
   * Execution instructions
