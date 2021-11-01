@@ -16,3 +16,7 @@
 #### "aff_mat_train_test/" contains:
   * scripts of model architecture
   * scripts of training and testing
+
+### TODO:
+  * Execution instructions
+  * Dataset Link
