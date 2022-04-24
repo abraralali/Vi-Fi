@@ -178,34 +178,3 @@ AllSeqAcc = [AllSeqAcc,ACC]
 cd(sequences_path+"/"+subFolders(k).name)
 fname = subFolders(k).name+"CorrelationResultOffline.mat";
 save(fname,'CorrelationResult');
-%%
-% fname = subFolders(k).name+"ZedSubPosition";
-% cd("C:\Users\aalali\CameraIMUCorrelation/Trials/NewTrials/"+subFolders(k).name)
-% save(fname,'ZedImgPosition');
-% cd('C:\Users\aalali\CameraIMUCorrelation')
-% %%
-% ZedImgPosition22 = {};
-% ZedImgPosition22 = ZedImgPosition(find(~cellfun(@isempty,ZedImgPosition)));
-% ZedImgPosition222 = {};
-% TTSync = timetable();
-% for m=1:size(ZedImgPosition22,2)
-%     ZedImgPosition222{1,m} = timetable(ZedImgPosition22{1,m}.timestamp,ZedImgPosition22{1,m}.trackID,...
-%         ZedImgPosition22{1,m}.AssPhoneID,ZedImgPosition22{1,m}.TimeString);
-%     TTSync = [TTSync;ZedImgPosition222{1,m}];
-% end
-% %TTSync = synchronize(ZedImgPosition222{:,:},'union');
-% TTSync1 = timetable2table(TTSync);
-% uniTimes = unique(TTSync1.Time);
-% uniTimesString = unique(TTSync1.Var3);
-% uniTTSync = {};
-% for ut=1:numel(uniTimes)
-%     uniTTSyncrows = TTSync1(TTSync1.Time==uniTimes(ut),2:3);
-% %     uniTTSync{ut} = [datestr(uniTimes(ut),'dd-mm-yyyy HH_MM_SS.FFF'),' ',num2str(reshape(uniTTSyncrows{:,:}.',1,[]))];
-%     uniTTSync{ut,1} = uniTimesString(ut);
-%     uniTTSync{ut,2} = uniTTSyncrows{:,1}';
-%     uniTTSync{ut,3} = uniTTSyncrows{:,2}';
-% end
-% uniTTSyncT = cell2table(uniTTSync);
-% cd('C:\Users\aalali\CameraIMUCorrelation\IMUFTM_Offline_Correlation_Result')
-% writetable(uniTTSyncT,subFolders(k).name+".csv")%,'Delimiter',',')
-% % writetable(uniTTSyncT,subFolders(k).name+".txt",'Delimiter',',','WriteRowNames',false);
