@@ -1,3 +1,15 @@
+clear
+samplingRate = 3;
+specificDay = 0;
+%testSequences = 0;
+testSequences = 1;
+
+if testSequences == 1
+    sequences_path = 'E:/RANProject/TestSequences/';% change this path to where you are storing the sequences folders
+end
+if testSequences == 0
+    sequences_path = 'E:/RANProject/WINLABData/';% change this path to where you are storing the sequences folders - make it as the above 
+end
 %% Import data from text file
 % Script for importing data from the following text file:
 %
@@ -34,9 +46,10 @@ opts = setvaropts(opts, ["Var1", "png0Hansi1Nicholas2Others"], "EmptyFieldRule",
 
 %% Clear temporary variables
 
-src_path = 'D:\RANProject\src2\src';
+src_path = 'E:\RANProject\src2\src';
 cd(src_path)
 load("Offsets.mat")
+load('ValidTimestampscsv.mat')
 cd(sequences_path)
 
 
@@ -48,7 +61,13 @@ dirFlags = [files.isdir];
 subFolders = files(dirFlags);
 % Print folder names to command window.
 
-for k = 1 : size(subFolders,1)
+for k = 1 : 5%size(subFolders,1)
+    tlower = datetime(ValidTimestamps.VarName3(ValidTimestamps.VarName1==subFolders(k).name), 'Format', 'HH_mm_ss.SSSSSS');
+    tupper = datetime(ValidTimestamps.VarName5(ValidTimestamps.VarName1==subFolders(k).name), 'Format', 'HH_mm_ss.SSSSSS');
+%     DateTimeT.Day.Format = 'yyyy-MM-dd';
+    day = convertCharsToStrings(subFolders(k).name(1:8));
+    day = datetime(day,'InputFormat','yyyyMMdd','Format', 'yyyy-MM-dd');
+    
     cd(sequences_path+"/"+subFolders(k).name)
     zedBoxgndmatch = readtable(sequences_path+"/"+subFolders(k).name+"/"+"zedBox_gnd_match.txt", opts);
     subFolders(k).name
@@ -59,15 +78,30 @@ for k = 1 : size(subFolders,1)
     else
         phoneholders = ["Hansi","Nicholas","Bo"];
     end
-
+    nn=1;
+    NoOfPohneHolders = double.empty(0);
     for n=1:numel(gndphoneholders)
+        if mod((n-1),3)~=0
+            continue;
+        end
         names = string(gndphoneholders(n));
         newnames = split(names,',')
         TF = contains(newnames,phoneholders);
-        NoOfPohneHolsers(n) = sum(TF);
+        
+
+        TstampTF = contains(newnames,'_');
+        TS = newnames(TstampTF).replace('.png','');
+%         TS = newnames(TstampTF).replace('_',':');
+        TS = datetime(TS, 'Format', 'HH_mm_ss.SSSSSS');
+%         tf = isbetween(TS,tlower,tupper);
+        tf = timeofday(TS)>=timeofday(tlower)&&timeofday(TS)<=timeofday(tupper);
+        if tf
+            NoOfPohneHolders(nn) = sum(TF);
+            nn = nn+1;
+        end
     end
-    NoOfPohneHolsers = NoOfPohneHolsers';
-    save(subFolders(k).name+"NoOfPohneHolsers",'NoOfPohneHolsers')
+    NoOfPohneHolders = NoOfPohneHolders';
+    save(subFolders(k).name+"NoOfPohneHolders",'NoOfPohneHolders')
 end
 %%
 
