@@ -73,10 +73,15 @@ for k = 1 : 5%size(subFolders,1)
     subFolders(k).name
     gndphoneholders = zedBoxgndmatch;
     gndphoneholders = table2cell(gndphoneholders);
-    if k==1 || k==2
-        phoneholders = ["Hansi","Nicholas"];
-    else
-        phoneholders = ["Hansi","Nicholas","Bo"];
+    if testSequences == 1
+        if day == "20211004"
+        phoneholders = {'Subject1','Subject6'};
+        else
+            phoneholders = {'Subject1','Subject6','Subject7'};
+        end
+    end
+    if testSequences == 0
+        phoneholders = {'Subject1','Subject2','Subject3','Subject4','Subject5'};
     end
     nn=1;
     NoOfPohneHolders = double.empty(0);
