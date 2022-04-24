@@ -107,16 +107,20 @@ TotalPeople = 0;
 matchID = 0;
 cd(sequences_path)
 load(subFolders(k).name+"NoOfPohneHolsers")
-% if k==15
-%     phonesHolders = {'Mohamed','Hongyu','Sid','Murtadha','Hansi'};
-% else
-if day == "20211004"
-    AllphonesHolders = {'Hansi','Nicholas'};
-    subjects = {'Hansi','Nicholas','Others'};
-else
-    AllphonesHolders = {'Hansi','Nicholas','Bo'};
-    subjects = {'Hansi','Nicholas','Bo','Others'};
+if testSequences == 1
+    if day == "20211004"
+    AllphonesHolders = {'Subject1','Subject6'};
+    subjects = {'Subject1','Subject6','Others'};
+    else
+        AllphonesHolders = {'Subject1','Subject6','Subject7'};
+        subjects = {'Subject1','Subject6','Subject7'};
+    end
 end
+if testSequences == 0
+    AllphonesHolders = {'Subject1','Subject2','Subject3','Subject4','Subject5'};
+    subjects = {'Subject1','Subject2','Subject3','Subject4','Subject5'};
+end
+
 
 
 phonesHolders = AllphonesHolders(1:size(PhoneIMUReadings,2));
