@@ -41,156 +41,30 @@ for f = 1 : size(IsHere,1)
     end
     [assignment,cost] = munkres(Graph_FrameMinDist);
     [assrow,asscol] = find(assignment);
-%     Frames_FrameMinDist{f,1} = distM.*IsHere(f,2:end);
-    %Frames_FrameMinDist{f,3} = nanstd(distM.*IsHere(f,2:end),[],2);
-    
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %             if time_seg==1
-    %                 % Draw graphs:
-    %                 [Distrows,Distcols] = find(~isnan(distM));
-    %                 FrameDistGraph = distM(unique(Distrows),unique(Distcols));
-    % %                 dim = size(FrameDistGraph);
-    % %                 [max_nodes,max_dim] = max(dim);
-    % %                 if max_dim == 2
-    % %                     num_of_additional_phones = max_nodes - size(FrameMinDistGraph,1);
-    % %                     Graph_FrameDistGraph = [FrameDistGraph;inf(num_of_additional_phones,size(FrameDistGraph,2))];
-    % %                 else % max_dim is 1
-    % %                     num_of_additional_subjects = max_nodes - size(FrameDistGraph,2);
-    % %                     Graph_FrameDistGraph = [FrameDistGraph,inf(size(FrameDistGraph,1),num_of_additional_subjects)];
-    % %                 end
-    %                 [as,~] = munkres(FrameDistGraph);
-    %                 matching_graph = FrameDistGraph.*as;
-    %                 n = size(matching_graph,2);
-    %                 m = size(matching_graph,1);
-    %                 big_matching_graph = [zeros(m,m), matching_graph;
-    %                          matching_graph', zeros(n,n)];
-    %                 g = digraph(big_matching_graph);
-    %                 %g.Nodes.Name = {'Pixel 2' 'Pixel 3' 'Hongyou' 'Sid'}';
-    %                 figure
-    %                 h = plot(g,'EdgeLabel',g.Edges.Weight);%,'NodeLabel',g.Nodes.Name);
-    %                 h.LineStyle = '-';
-    %                 m = size(FrameDistGraph,1);
-    %                 n = size(FrameDistGraph,2);
-    %                 h.XData(1:m) = 1;
-    %                 h.XData((m+1):end) = 2;
-    %                 h.YData(1:m) = linspace(0,1,m);
-    %                 h.YData((m+1):end) = linspace(0,1,n);
-    %             end
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %             MatchedFrameDist = MinDist.*assignment;
-    %             MatchedFrameDist = max(MatchedFrameDist);
-    %             MatchedFrameDistSTD = [MatchedFrameDistSTD;nanstd(MatchedFrameDist)];
-    %             existingPeople = find(IsHere(time_seg,2:end));
-    %             NotCorrelatedPeopel = ~ismember(asscol,existingPeople);
+
     CorrelationResult(f,1) = IsHere(f,1);
     CorrelationResult(f,asscol+1) = assrow'.*IsHere(f,asscol+1);
-    %             if NotCorrelatedPeopel==0
-    %                 CorrelationResult(time_seg,NotCorrelatedPeopel+1) = -1.*IsHere(time_seg,asscol+1);
-    %             end
-    %         end
-    %     end
     
-    
-    
-    %         [gndrow,gndcol] = find(FrameGNDAssignment);
-    %         gnd = [gndrow,gndcol];
-    %         ass = [assrow,asscol]
-    %         DistAss{time_seg} = [MinDist,assignment];
-    
-    %         MatchingResult{time_seg} = isequal(FrameGNDAssignment,assignment);
-    
-    %         if isempty(ass)% if none of the person is correlated
-    %             FN = 3;
-    %             AllFN = [AllFN;FN];
-    %         else
-    %             k = ismember(ass,gnd, 'rows');
-    %             CorrectlyAssigned = ass(k,:)
-    %             phoneid{ass(k,2)}
-    %             kFN = ~ismember(gnd,ass, 'rows');
-    %             negk = ~ismember(ass,gnd,'rows');
-    %
-    %             TP = sum(k)
-    %             TPs = TPs + TP;
-    %
-    %
-    %             FP = sum(negk)% the person should be correlated but it was not
-    %             FPs = FPs + FP;
-    %             AllFP = AllFP+FP;
-    %             Accuracy = [Accuracy;TPs/(TPs+FPs)]
-    %             HeadStd = [HeadStd;sum(PeopleInFrame)]
-    %
-    %             asTN = ~(assignment);
-    %             ass_neg_Col = sum(asTN);
-    %             ass_neg_idx = find(ass_neg_Col==length(gndrow));
-    %
-    %             gnTN = ~(GNDAssignemnt);
-    %             gn_neg_Col = sum(gnTN);
-    %             gn_neg_idx = find(gn_neg_Col==length(gndrow));
-    %             TN_people = ismember(ass_neg_idx,gn_neg_idx);
-    %             FN_People = ~ismember(ass_neg_idx,gn_neg_idx);
-    %
-    %             TN = TN + sum(TN_people);
-    %             AllTN = AllTN+TN;
-    %
-    %             FN = FN + sum(FN_People);
-    %             AllFN = AllFN +FN;
-    %
-    %             matched_elements = sum(k(:));   % total number of equal elements, I will get it as p (i fixed it earlier)
-    %             matching_precentage(time_seg) = matched_elements/(length(gndcol));
     mulTimeSegment = mulTimeSegment+global_winShift;
     
-    %         end
-    %         precesions(time_seg,:) = [TP/length(gndrow),FP/length(gndrow),TN/length(gndrow),FN/length(gndrow)];
-    %
-    %         Precesion = sum(AllTP)/(sum(AllTP)+sum(AllFP));
-    %         Recall = sum(AllTP)/(sum(AllTP)+sum(AllFN));
-    %
-    %         F1_score = 2*((Precesion*Recall)/(Precesion+Recall));
-    %
-    %         time_seg_precesions(time_seg) = F1_score;
-    %         All_precesions(time_seg,:) = [sum(AllTP)/(3*time_seg),sum(AllFP)/(3*time_seg),sum(AllFN)/(3*time_seg)];
-    %
-    %         prev_distM = distM;
-    
-    %     if figFlag1
-    % Draw graphs:
-    %             matching_graph = ValidMinDist.*assignment;
-    %             n = size(matching_graph,2);
-    %             m = size(matching_graph,1);
-    %             big_matching_graph = [zeros(m,m), matching_graph;
-    %                      matching_graph', zeros(n,n)];
-    %             g = digraph(big_matching_graph);
-    %             phonesHolders = {'Mohamed','Hongyu','Sid','Murtadha','Hansi'};
-    %             subjects = {'Hansi','Mohamed','Hongyu','Sid','Murtadha'};
-    % %             g.Nodes.Name = {subjects,phonesHolders};
-    %             h = plot(g,'EdgeLabel',g.Edges.Weight);
-    %             h.LineStyle = '-';
-    %             m = size(MinDist,1);
-    %             n = size(MinDist,2);
-    %             h.XData(1:m) = 1;
-    %             h.XData((m+1):end) = 2;
-    %             h.YData(1:m) = linspace(0,1,m);
-    %             h.YData((m+1):end) = linspace(0,1,n);
-    %         end
-    
+   
 end
 TotalPeople = 0;
 matchID = 0;
 cd(sequences_path)
 load(subFolders(k).name+"NoOfPohneHolsers")
-% if k==15
-%     phonesHolders = {'Mohamed','Hongyu','Sid','Murtadha','Hansi'};
-% else
-% AllphonesHolders = {'Hansi','Mohamed','Hongyu','Sid','Murtadha'};
-% phonesHolders = AllphonesHolders(1:num_of_phones);
-% % end
-% subjects = {'Hansi','Mohamed','Hongyu','Sid','Murtadha'};
-if day == "20211004"
-    AllphonesHolders = {'Hansi','Nicholas'};
-    subjects = {'Hansi','Nicholas'};
-else
-    AllphonesHolders = {'Hansi','Nicholas','Bo'};
-    subjects = {'Hansi','Nicholas','Bo'};
+if testSequences == 1
+    if day == "20211004"
+    AllphonesHolders = {'Subject1','Subject6'};
+    subjects = {'Subject1','Subject6','Others'};
+    else
+        AllphonesHolders = {'Subject1','Subject6','Subject7'};
+        subjects = {'Subject1','Subject6','Subject7'};
+    end
+end
+if testSequences == 0
+    AllphonesHolders = {'Subject1','Subject2','Subject3','Subject4','Subject5'};
+    subjects = {'Subject1','Subject2','Subject3','Subject4','Subject5'};
 end
 
 for ai = 1:size(CorrelationResult,1)
